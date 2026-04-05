@@ -7,14 +7,26 @@ import Ad from "../components/Ad";
 
 const Dashboard = () => {
 
+    const API_URL = "http://localhost:3001/transactions";
+
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        const saved = localStorage.getItem("transactions");
-        if (saved) {
-            setTransactions(JSON.parse(saved));
-        }
-    }, []);
+        fetch(API_URL)
+          .then(res => res.json())
+          .then(data => setTransactions(Array.isArray(data) ? data : []))
+          .catch(err => {
+            console.error("Error fetching:", err);
+            setTransactions([]);
+          });
+      }, []);
+
+    // useEffect(() => {
+    //     const saved = localStorage.getItem("transactions");
+    //     if (saved) {
+    //         setTransactions(JSON.parse(saved));
+    //     }
+    // }, []);
 
     // ✅ TOTALS
     const totalIncome = transactions
@@ -65,7 +77,7 @@ const Dashboard = () => {
                         <div className="min-[900px]:w-2/5 w-full">
                             <MyBalance balance={balance} />
                         </div>
-                        <div className="flex gap-4 min-[900px]:w-3/5 w-full">
+                        <div className="flex flex-col min-[600px]:flex-row gap-4 min-[900px]:w-3/5 w-full">
                             <IncomeExpence 
                                 inc_exp="Income"
                                 money={monthlyIncome.toLocaleString()}

@@ -107,7 +107,7 @@ const Header = ({ theme, setTheme }) => {
 
             {/* NAVBAR SAME */}
             <div className="flex py-5 items-center justify-between">
-                <h1 className="text-black font-bold text-2xl dark:text-gray-100">
+                <h1 className="text-black font-bold min-[400px]:text-2xl min-[500px]:text-3xl  text-xl dark:text-gray-100">
                     Good morning, Anshdeep
                 </h1>
 

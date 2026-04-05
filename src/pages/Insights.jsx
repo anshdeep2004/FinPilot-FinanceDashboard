@@ -5,15 +5,27 @@ import SentenceInsights from "../components/SentenceInsights";
 
 const Insights = () => {
 
+  const API_URL = "http://localhost:3001/transactions";
+
   const [transactions, setTransactions] = useState([]);
   const [month, setMonth] = useState(new Date().getMonth());
 
   useEffect(() => {
-    const saved = localStorage.getItem("transactions");
-    if (saved) {
-      setTransactions(JSON.parse(saved));
-    }
-  }, []);
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => setTransactions(Array.isArray(data) ? data : []))
+        .catch(err => {
+          console.error("Error fetching:", err);
+          setTransactions([]);
+        });
+    }, []);
+
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("transactions");
+  //   if (saved) {
+  //     setTransactions(JSON.parse(saved));
+  //   }
+  // }, []);
 
   const filtered = transactions.filter(
     t => new Date(t.date).getMonth() === month
@@ -35,20 +47,20 @@ const Insights = () => {
         </select>
 
         {/* Cards Layout */}
-        <div className="flex gap-4 w-full">
+        <div className="flex flex-col min-[900px]:flex-row gap-4 w-full">
 
           {/* LEFT SIDE */}
-          <div className="w-1/3">
+          <div className="min-[900px]:w-1/3">
             <Summary transactions={filtered} />
           </div>
 
           {/* MIDDLE */}
-          <div className="w-1/3">
+          <div className="min-[900px]:w-1/3">
             <CategoryWiseBreak transactions={filtered} />
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="w-1/3">
+          <div className="min-[900px]:w-1/3">
             <SentenceInsights transactions={filtered} />
           </div>
 

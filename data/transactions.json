@@ -1,0 +1,13 @@
+{
+  "transactions": [
+    {
+      "date": "2026-04-05",
+      "description": "food",
+      "category": "Groceries",
+      "type": "expense",
+      "amount": 1200,
+      "id": "1lGGkujj7Ew"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

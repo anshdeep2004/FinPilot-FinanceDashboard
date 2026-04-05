@@ -76,10 +76,11 @@ const IncomeExpenseGraph = ({ transactions }) => {
         }
     }, [transactions, range]);
 
-  const avgIncome =
-    data.reduce((a, b) => a + b.income, 0) / data.length;
-  const avgExpenses =
-    data.reduce((a, b) => a + b.expenses, 0) / data.length;
+    const avgIncome =
+        data.length ? data.reduce((a, b) => a + b.income, 0) / data.length : 0;
+
+    const avgExpenses =
+        data.length ? data.reduce((a, b) => a + b.expenses, 0) / data.length : 0;
 
   return (
     <div className="bg-white dark:bg-[#121614] dark:text-gray-100 rounded-2xl p-6 border border-gray-300 dark:border-gray-700 w-full mb-5">
