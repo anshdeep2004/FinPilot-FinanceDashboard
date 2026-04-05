@@ -2,29 +2,6 @@ import React, { useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Calendar } from 'lucide-react'
 
-const monthlyData = [
-  { name: "Jan", income: 12000, expenses: 8000 },
-  { name: "Feb", income: 14000, expenses: 9000 },
-  { name: "Mar", income: 18000, expenses: 11000 },
-  { name: "Apr", income: 15000, expenses: 9500 },
-  { name: "May", income: 17000, expenses: 8500 },
-  { name: "Jun", income: 13000, expenses: 8000 },
-  { name: "Jul", income: 16281, expenses: 6638 },
-  { name: "Aug", income: 15500, expenses: 7000 },
-  { name: "Sep", income: 14500, expenses: 6000 },
-  { name: "Oct", income: 12000, expenses: 7500 },
-  { name: "Nov", income: 16500, expenses: 7200 },
-  { name: "Dec", income: 15000, expenses: 7800 },
-];
-
-const yearlyData = [
-  { name: "2020", income: 120000, expenses: 80000 },
-  { name: "2021", income: 150000, expenses: 90000 },
-  { name: "2022", income: 170000, expenses: 110000 },
-  { name: "2023", income: 190000, expenses: 130000 },
-  { name: "2024", income: 210000, expenses: 140000 },
-];
-
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -83,7 +60,8 @@ const IncomeExpenseGraph = ({ transactions }) => {
         data.length ? data.reduce((a, b) => a + b.expenses, 0) / data.length : 0;
 
   return (
-    <div className="bg-white dark:bg-[#121614] dark:text-gray-100 rounded-2xl p-6 border border-gray-300 dark:border-gray-700 w-full mb-5">
+    <div className="bg-white dark:bg-[#121614] dark:text-gray-100
+     rounded-2xl p-6 border border-gray-300 dark:border-gray-700 w-full mb-5">
         <div className="flex justify-between items-center mb-4">
             <div>
                 <h2 className="text-lg font-semibold">Statistics</h2>

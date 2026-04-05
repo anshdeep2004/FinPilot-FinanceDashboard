@@ -1,15 +1,37 @@
 import React, { useEffect, useState } from "react";
 import MyBalance from "../components/MyBalance";
+import AddTransaction from "../components/AddTransaction";
 import IncomeExpence from "../components/IncomeExpence";
 import AllExpenses from "../components/AllExpences";
 import IncomeExpenseGraph from "../components/IncomeExpenseGraph";
 import Ad from "../components/Ad";
+import { Plus } from "lucide-react";
 
 const Dashboard = () => {
 
     const API_URL = "http://localhost:3001/transactions";
 
     const [transactions, setTransactions] = useState([]);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const isEmpty = transactions.length === 0;
+
+    const handleSave = async (data) => {
+        try {
+            const res = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+            });
+
+            const newTransaction = await res.json();
+            setTransactions((prev) => [newTransaction, ...prev]);
+            setShowModal(false);
+        } catch (err) {
+            console.error("Error saving:", err);
+        }
+    };
 
     useEffect(() => {
         fetch(API_URL)
@@ -28,7 +50,6 @@ const Dashboard = () => {
     //     }
     // }, []);
 
-    // ✅ TOTALS
     const totalIncome = transactions
         .filter(t => t.type === "income")
         .reduce((a, b) => a + b.amount, 0);
@@ -39,7 +60,6 @@ const Dashboard = () => {
 
     const balance = totalIncome - totalExpense;
 
-    // ✅ MONTHLY (current month)
     const currentMonth = new Date().getMonth();
 
     const monthlyIncome = transactions
@@ -50,7 +70,6 @@ const Dashboard = () => {
         .filter(t => new Date(t.date).getMonth() === currentMonth && t.type === "expense")
         .reduce((a, b) => a + b.amount, 0);
 
-    // ✅ CATEGORY PERCENTAGE
     const categoryMap = {};
 
     transactions
@@ -70,9 +89,9 @@ const Dashboard = () => {
     }));
 
     return (
-        <div className="px-6 dark:bg-gray-950 py-4">
+        <div className="px-6 dark:bg-gray-950 py-4 mb-15 min-h-screen">
             <div className="flex flex-col min-[1300px]:flex-row gap-4 w-full">
-                <div className="min-[1300px]:w-7/10 w-full flex flex-col gap-4">
+                <div className={`${isEmpty ? "w-full" : "min-[1300px]:w-7/10"} w-full flex flex-col gap-4`}>
                     <div className="w-full flex flex-col min-[900px]:flex-row gap-4">
                         <div className="min-[900px]:w-2/5 w-full">
                             <MyBalance balance={balance} />
@@ -91,13 +110,35 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="w-full">
-                        <IncomeExpenseGraph transactions={transactions} />
+                    <div className="w-full flex justify-center">
+                        {!isEmpty && (
+                            <IncomeExpenseGraph transactions={transactions} />
+                        )}
+
+                        {isEmpty && (
+                            <div className="flex flex-col w-full min-[750px]:w-125 items-center border border-gray-300 
+                            dark:border-gray-700 dark:bg-[#121614] rounded-lg py-6 justify-center text-center mt-10 gap-8">
+                                <div className="flex items-center justify-center p-2 bg-green-600 rounded-full">
+                                    <Plus className="text-white dark:text-gary-100 font-semibold" size={24}/>
+                                </div>
+                                <p className="text-gray-500 text-lg dark:text-gray-300">
+                                    Get started with your first transaction !!
+                                </p>
+
+                                <button
+                                    onClick={() => setShowModal(true)}
+                                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+                                >
+                                    Add Transaction
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div className="min-[1300px]:w-3/10 w-full">
-                    <div className="flex flex-col gap-4">
+                {!isEmpty && (
+                    <div className="min-[1300px]:w-3/10 w-full">
+                        <div className="flex flex-col gap-4">
                         <AllExpenses
                             data={expenseData}
                             daily={(monthlyExpense / 30).toFixed(0)}
@@ -105,9 +146,16 @@ const Dashboard = () => {
                             monthly={monthlyExpense}
                         />
                         <Ad />
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
+            {showModal && (
+                <AddTransaction
+                    onClose={() => setShowModal(false)}
+                    onSave={handleSave}
+                />
+            )}
         </div>
     );
 };

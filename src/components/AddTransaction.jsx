@@ -22,7 +22,7 @@ const AddTransaction = ({ onClose, onSave, editData }) => {
   const types = ["income", "expense"];
 
   const [form, setForm] = useState({
-    date: new Date().toISOString().split("T")[0], // better for input type="date"
+    date: new Date().toISOString().split("T")[0],
     description: "",
     category: "Groceries",
     type: "expense",

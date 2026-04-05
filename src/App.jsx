@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 // import viteLogo from './assets/vite.svg'
 // import heroImg from './assets/hero.png'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Dashboard from './pages/Dashboard'
 import Transaction from './pages/Transaction'
 import Insights from './pages/Insights'
@@ -40,6 +41,8 @@ function App() {
           <Route path='/insights' element={<Insights />} />
           <Route path='/settings' element={<Settings />} />
         </Routes>
+
+        <Footer />
       </BrowserRouter>
     </div>
   )

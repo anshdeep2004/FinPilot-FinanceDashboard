@@ -41,13 +41,11 @@ const CategoryWiseBreak = ({ transactions }) => {
         {data.map((d, i) => (
           <div key={i}>
 
-            {/* Labels */}
             <div className="flex justify-between text-sm mb-1">
               <span className="text-gray-700 dark:text-gray-300">{d.name}</span>
               <span className="font-medium">{d.value}%</span>
             </div>
 
-            {/* Progress Bar */}
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
               <div
                 className={`bg-green-600 h-2 rounded-full transition-all duration-1000 ease-out ${

@@ -1,12 +1,164 @@
 {
   "transactions": [
     {
-      "date": "2026-04-05",
-      "description": "food",
+      "date": "2026-01-05",
+      "description": "Salary",
+      "category": "Others",
+      "type": "income",
+      "amount": 100000,
+      "id": "U-_iqACZzoo"
+    },
+    {
+      "date": "2026-01-10",
+      "description": "Movie",
+      "category": "Entertainment",
+      "type": "expense",
+      "amount": 1000,
+      "id": "8rCHGvKhk0c"
+    },
+    {
+      "date": "2026-01-10",
+      "description": "College fees",
+      "category": "Utilities",
+      "type": "expense",
+      "amount": 30000,
+      "id": "ZvySPQ5A5xc"
+    },
+    {
+      "date": "2026-01-05",
+      "description": "Tech Fest",
+      "category": "Entertainment",
+      "type": "expense",
+      "amount": 3000,
+      "id": "cM9XLxoGfjI"
+    },
+    {
+      "date": "2026-02-10",
+      "description": "Salary",
+      "category": "Others",
+      "type": "income",
+      "amount": 115000,
+      "id": "q0O6EAe_FHw"
+    },
+    {
+      "date": "2026-02-05",
+      "description": "Shop Rent",
+      "category": "Others",
+      "type": "income",
+      "amount": 15000,
+      "id": "b3ISgNt-9hM"
+    },
+    {
+      "date": "2026-02-05",
+      "description": "Foreign Trip",
+      "category": "Entertainment",
+      "type": "expense",
+      "amount": 50000,
+      "id": "KPytp0wUOWU"
+    },
+    {
+      "date": "2026-02-05",
+      "description": "Medicines",
+      "category": "Healthcare",
+      "type": "expense",
+      "amount": 5000,
+      "id": "iPofoQhC8w8"
+    },
+    {
+      "date": "2026-02-15",
+      "description": "Movie",
+      "category": "Entertainment",
+      "type": "expense",
+      "amount": 1500,
+      "id": "FEPMXsBZS8c"
+    },
+    {
+      "date": "2026-02-20",
+      "description": "Website sell",
+      "category": "Others",
+      "type": "income",
+      "amount": 5000,
+      "id": "S489KH5EvSk"
+    },
+    {
+      "date": "2026-02-27",
+      "description": "Gift",
+      "category": "Shopping",
+      "type": "expense",
+      "amount": 1600,
+      "id": "wM3uBKtaNQk"
+    },
+    {
+      "date": "2026-03-05",
+      "description": "Salary",
+      "category": "Others",
+      "type": "income",
+      "amount": 130000,
+      "id": "PyKHVVAQTN4"
+    },
+    {
+      "date": "2026-03-07",
+      "description": "Doctor",
+      "category": "Healthcare",
+      "type": "expense",
+      "amount": 1000,
+      "id": "HH3XYxrdn0o"
+    },
+    {
+      "date": "2026-03-10",
+      "description": "Veggies",
       "category": "Groceries",
       "type": "expense",
-      "amount": 1200,
-      "id": "1lGGkujj7Ew"
+      "amount": 512,
+      "id": "YnHdgMiLxHA"
+    },
+    {
+      "date": "2026-03-15",
+      "description": "shop rent",
+      "category": "Others",
+      "type": "income",
+      "amount": 15000,
+      "id": "HNl84SOZE5E"
+    },
+    {
+      "date": "2026-03-20",
+      "description": "Fees",
+      "category": "Utilities",
+      "type": "expense",
+      "amount": 25000,
+      "id": "Z3FUfe8SzQ4"
+    },
+    {
+      "date": "2026-04-05",
+      "description": "Salary",
+      "category": "Others",
+      "type": "income",
+      "amount": 137000,
+      "id": "Jw2Lwf6UNwI"
+    },
+    {
+      "date": "2026-04-12",
+      "description": "Trip",
+      "category": "Entertainment",
+      "type": "expense",
+      "amount": 27000,
+      "id": "JopcEIpWdlQ"
+    },
+    {
+      "date": "2026-04-21",
+      "description": "Medicines",
+      "category": "Healthcare",
+      "type": "expense",
+      "amount": 958,
+      "id": "5H0wMscX7pk"
+    },
+    {
+      "date": "2026-04-27",
+      "description": "cloths",
+      "category": "Shopping",
+      "type": "expense",
+      "amount": 3000,
+      "id": "NEtG1p_jAfo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -20,7 +20,7 @@ const Header = ({ theme, setTheme }) => {
         setRole(newRole);
         localStorage.setItem("role", newRole);
         setOpen(false);
-        window.location.reload(); // simple refresh
+        window.location.reload();
     };
 
     const tabs = [
@@ -44,7 +44,6 @@ const Header = ({ theme, setTheme }) => {
                     </div>
                 </div>
 
-                {/* RIGHT SIDE */}
                 <div className="flex items-center gap-5 ml-auto relative">
 
                     <div onClick={() => setTheme(theme === "dark" ? "light" : "dark")} 
@@ -56,7 +55,6 @@ const Header = ({ theme, setTheme }) => {
                         )}
                     </div>
 
-                    {/* PROFILE BUTTON */}
                     <div
                         className="flex items-center gap-3 cursor-pointer"
                         onClick={() => setOpen(!open)}
@@ -68,18 +66,15 @@ const Header = ({ theme, setTheme }) => {
                         </div>
                     </div>
 
-                    {/* DROPDOWN */}
                     {open && (
                         <div className="absolute right-0 top-12 bg-white border border-gray-300 dark:border dark:border-gray-700 dark:bg-[#121614] rounded-xl shadow-lg p-4 w-56 z-50">
 
-                            {/* Profile Info */}
                             <div className="flex flex-col items-center mb-3">
                                 <img src={photo} className="h-14 w-14 rounded-full mb-2 dark:border dark:border-gray-700" />
                                 <p className="text-sm font-medium">Anshdeep Singh</p>
                                 <p className="text-xs text-gray-500">anshdeep@gmail.com</p>
                             </div>
 
-                            {/* Role Buttons */}
                             <div className="flex flex-col gap-2">
                                 <button
                                     onClick={() => changeRole("user")}
@@ -105,13 +100,11 @@ const Header = ({ theme, setTheme }) => {
                 </div>
             </div>
 
-            {/* NAVBAR SAME */}
             <div className="flex py-5 items-center justify-between">
                 <h1 className="text-black font-bold min-[400px]:text-2xl min-[500px]:text-3xl  text-xl dark:text-gray-100">
                     Good morning, Anshdeep
                 </h1>
 
-                {/* DESKTOP NAV */}
                 <div className="hidden min-[1000px]:flex items-center gap-3 border-b border-gray-300 dark:border-gray-700">
                     {tabs.map((tab) => (
                     <NavLink key={tab.name} to={tab.path}
@@ -133,7 +126,6 @@ const Header = ({ theme, setTheme }) => {
                     ))}
                 </div>
 
-                {/* MOBILE BURGER */}
                 <div className="min-[1000px]:hidden">
                     <button onClick={() => setOpenMobileMenu(!openMobileMenu)}>
                     {openMobileMenu ? <X size={26} /> : <Menu size={26} />}

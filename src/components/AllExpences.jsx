@@ -24,7 +24,6 @@ const AllExpenses = ({ data, daily, weekly, monthly }) => {
         </div>
       </div>
 
-      {/* Donut Chart */}
       <div className="w-full h-48">
         <ResponsiveContainer>
           <PieChart>
@@ -42,7 +41,6 @@ const AllExpenses = ({ data, daily, weekly, monthly }) => {
               ))}
             </Pie>
 
-            {/* Tooltip */}
             <Tooltip 
               formatter={(value, name) => [`${value}%`, name]}
             />
@@ -50,7 +48,6 @@ const AllExpenses = ({ data, daily, weekly, monthly }) => {
         </ResponsiveContainer>
       </div>
 
-      {/* Legend */}
       <div className="mt-4 space-y-2">
         {data.map((item, index) => (
           <div key={index} className="flex items-center justify-between text-sm dark:text-gray-100">
