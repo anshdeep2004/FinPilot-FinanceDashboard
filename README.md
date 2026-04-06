@@ -112,8 +112,3 @@ Contributions are welcome! Please follow these steps:
 5. Open a pull request.
 
 Ensure code follows the existing style and passes linting.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
->>>>>>> 2575a9d (Header commit)
