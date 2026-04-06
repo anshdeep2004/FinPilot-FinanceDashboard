@@ -18,9 +18,20 @@ const Transaction = () => {
     .then(res => res.json())
     .then(data => {
       const result = Array.isArray(data) ? data : [];
-      const sorted = result.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
+      const sorted = result.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        
+        // First sort by date descending (newest dates first)
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateB - dateA;
+        }
+        
+        // For same dates, sort by createdAt descending (most recent first)
+        const timeA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const timeB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return timeB - timeA;
+      });
       setTransactions(sorted);
     })
     .catch(err => {
@@ -33,6 +44,7 @@ const Transaction = () => {
     search: "",
     category: "all",
     type: "all",
+    month: "all",
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -55,7 +67,11 @@ const Transaction = () => {
       filters.type === "all" ||
       t.type.toLowerCase() === filters.type;
 
-    return matchesSearch && matchesCategory && matchesType;
+    const matchesMonth =
+      filters.month === "all" ||
+      new Date(t.date).getMonth() === parseInt(filters.month);
+
+    return matchesSearch && matchesCategory && matchesType && matchesMonth;
   });
 
   const handleSave = async (data) => {
@@ -99,7 +115,20 @@ const Transaction = () => {
         if (refetchRes.ok) {
           const refetchedData = await refetchRes.json();
           const result = Array.isArray(refetchedData) ? refetchedData : [];
-          const sorted = result.sort((a, b) => new Date(b.date) - new Date(a.date));
+          const sorted = result.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            
+            // First sort by date descending (newest dates first)
+            if (dateA.getTime() !== dateB.getTime()) {
+              return dateB - dateA;
+            }
+            
+            // For same dates, sort by createdAt descending (most recent first)
+            const timeA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+            const timeB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+            return timeB - timeA;
+          });
           setTransactions(sorted);
         }
       }
@@ -139,6 +168,11 @@ const Transaction = () => {
   };
 
   const handleExportCSV = () => {
+    if (!transactions || transactions.length === 0) {
+      alert("Add at least one transaction before exporting.");
+      return;
+    }
+
     const headers = ["Date", "Description", "Category", "Type", "Amount"];
 
     const rows = transactions.map((t) => [

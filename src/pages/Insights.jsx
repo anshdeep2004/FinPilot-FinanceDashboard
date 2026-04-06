@@ -10,16 +10,21 @@ const Insights = () => {
 
   const [transactions, setTransactions] = useState([]);
   const [month, setMonth] = useState(new Date().getMonth());
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   const isEmpty = transactions.length === 0;
 
   useEffect(() => {
       fetch(API_URL)
         .then(res => res.json())
-        .then(data => setTransactions(Array.isArray(data) ? data : []))
+        .then(data => {
+          setTransactions(Array.isArray(data) ? data : []);
+          setIsDataLoading(false);
+        })
         .catch(err => {
           console.error("Error fetching:", err);
           setTransactions([]);
+          setIsDataLoading(false);
         });
     }, []);
 
@@ -63,7 +68,7 @@ const Insights = () => {
 
         </div>
 
-        {isEmpty && (
+        {!isDataLoading && isEmpty && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             
             <div className="bg-white dark:bg-[#121614] rounded-2xl p-8 w-[90%] max-w-md text-center border border-gray-300 dark:border-gray-700 shadow-xl">

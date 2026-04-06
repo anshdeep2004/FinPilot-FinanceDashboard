@@ -121,11 +121,36 @@ const AddTransaction = ({ onClose, onSave, editData }) => {
           <button
             className="px-6 py-2 bg-green-600 text-sm text-white rounded-lg hover:bg-green-700"
             onClick={() => {
+              const selectedDate = new Date(form.date);
+              const today = new Date();
+
+              // Compare dates by year, month, day only
+              const selectedYear = selectedDate.getFullYear();
+              const selectedMonth = selectedDate.getMonth();
+              const selectedDay = selectedDate.getDate();
+
+              const todayYear = today.getFullYear();
+              const todayMonth = today.getMonth();
+              const todayDay = today.getDate();
+
+              if (selectedYear > todayYear ||
+                  (selectedYear === todayYear && selectedMonth > todayMonth) ||
+                  (selectedYear === todayYear && selectedMonth === todayMonth && selectedDay > todayDay)) {
+                alert("Please enter transactions with dates on or before today's date.");
+                return;
+              }
+
               if (!form.description || !form.amount) {
                 alert("Please fill all fields");
                 return;
               }
-              onSave(form);
+
+              // Add timestamp for new transactions
+              const transactionData = editData 
+                ? form 
+                : { ...form, createdAt: new Date().toISOString() };
+
+              onSave(transactionData);
             }}
           >
             Save

@@ -1,6 +1,9 @@
-import react from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const MyBalance = ({ balance }) => {
+const MyBalance = ({ balance, role, onAddMoney }) => {
+    const navigate = useNavigate();
+
     return (
         <div className="bg-white dark:bg-[#121614] text-black p-6
         rounded-2xl w-full min-[400px]:h-44 border border-gray-300 
@@ -15,14 +18,22 @@ const MyBalance = ({ balance }) => {
                     <span className="opacity-80">vs last month</span>
                 </div>
             </div>
-            <div className="flex flex-col min-[360px]:flex-row gap-3 items-center mt-5 w-full">
-                <button className= "bg-green-600 text-white text-sm min-[360px]:w-1/2 w-full px-4 py-2 rounded-lg ml-auto hover:bg-green-700 transition-colors duration-300">
-                    Add Money
-                </button>
-                <button className="bg-white dark:bg-gray-200 text-green-600 text-sm font-bold
-                 min-[360px]:w-1/2 w-full px-4 py-2 rounded-lg border border-gray-300 ml-auto hover:bg-gray-50 
-                 hover:dark:bg-gray-300 transition-colors duration-300">
-                    Transaction
+            <div className="flex flex-col min-[400px]:flex-row gap-3 items-center mt-5 w-full">
+                {role === "admin" && (
+                    <button
+                        onClick={onAddMoney}
+                        className="bg-green-600 text-white text-sm min-[400px]:w-1/2 w-full px-4 py-2 rounded-lg ml-auto hover:bg-green-700 transition-colors duration-300"
+                    >
+                        Add transaction
+                    </button>
+                )}
+                <button
+                    onClick={() => navigate("/transaction")}
+                    className="bg-white dark:bg-gray-200 text-green-600 text-sm font-bold
+                 min-[400px]:w-1/2 w-full px-4 py-2 rounded-lg border border-gray-300 ml-auto hover:bg-gray-50 
+                 hover:dark:bg-gray-300 transition-colors duration-300"
+                >
+                    Transactions
                 </button>
             </div>
         </div>

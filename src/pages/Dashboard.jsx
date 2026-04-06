@@ -5,11 +5,13 @@ import IncomeExpence from "../components/IncomeExpence";
 import AllExpenses from "../components/AllExpences";
 import IncomeExpenseGraph from "../components/IncomeExpenseGraph";
 import Ad from "../components/Ad";
-import { Plus } from "lucide-react";
+import { Plus, Lock } from "lucide-react";
 
 const Dashboard = () => {
 
     const API_URL = "http://localhost:3001/transactions";
+
+    const role = localStorage.getItem("role") || "admin";
 
     const [transactions, setTransactions] = useState([]);
 
@@ -36,7 +38,24 @@ const Dashboard = () => {
     useEffect(() => {
         fetch(API_URL)
           .then(res => res.json())
-          .then(data => setTransactions(Array.isArray(data) ? data : []))
+          .then(data => {
+            const result = Array.isArray(data) ? data : [];
+            const sorted = result.sort((a, b) => {
+              const dateA = new Date(a.date);
+              const dateB = new Date(b.date);
+              
+              // First sort by date descending (newest dates first)
+              if (dateA.getTime() !== dateB.getTime()) {
+                return dateB - dateA;
+              }
+              
+              // For same dates, sort by createdAt descending (most recent first)
+              const timeA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+              const timeB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+              return timeB - timeA;
+            });
+            setTransactions(sorted);
+          })
           .catch(err => {
             console.error("Error fetching:", err);
             setTransactions([]);
@@ -94,7 +113,7 @@ const Dashboard = () => {
                 <div className={`${isEmpty ? "w-full" : "min-[1300px]:w-7/10"} w-full flex flex-col gap-4`}>
                     <div className="w-full flex flex-col min-[900px]:flex-row gap-4">
                         <div className="min-[900px]:w-2/5 w-full">
-                            <MyBalance balance={balance} />
+                            <MyBalance balance={balance} role={role} onAddMoney={() => setShowModal(true)} />
                         </div>
                         <div className="flex flex-col min-[600px]:flex-row gap-4 min-[900px]:w-3/5 w-full">
                             <IncomeExpence 
@@ -119,18 +138,26 @@ const Dashboard = () => {
                             <div className="flex flex-col w-full min-[750px]:w-125 items-center border border-gray-300 
                             dark:border-gray-700 dark:bg-[#121614] rounded-lg py-6 justify-center text-center mt-10 gap-8">
                                 <div className="flex items-center justify-center p-2 bg-green-600 rounded-full">
-                                    <Plus className="text-white dark:text-gary-100 font-semibold" size={24}/>
+                                    {role === "admin" ? (
+                                        <Plus className="text-white dark:text-gary-100 font-semibold" size={24}/>
+                                    ) : (
+                                        <Lock className="text-white dark:text-gary-100 font-semibold" size={24}/>
+                                    )}
                                 </div>
                                 <p className="text-gray-500 text-lg dark:text-gray-300">
-                                    Get started with your first transaction !!
+                                    {role === "admin" 
+                                        ? "Get started with your first transaction !!" 
+                                        : "Only Admin can add the transactions."}
                                 </p>
 
-                                <button
-                                    onClick={() => setShowModal(true)}
-                                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
-                                >
-                                    Add Transaction
-                                </button>
+                                {role === "admin" && (
+                                    <button
+                                        onClick={() => setShowModal(true)}
+                                        className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+                                    >
+                                        Add Transaction
+                                    </button>
+                                )}
                             </div>
                         )}
                     </div>

@@ -5,43 +5,48 @@ const Filters = ({ filters, setFilters }) => {
 
     const categories = ["Groceries", "Shopping", "Healthcare", "Entertainment", "Utilities", "Others"];
     const types = ["Income", "Expense"];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const handleReset = () => {
         setFilters({
             search: "",
             category: "all",
-            type: "all"
+            type: "all",
+            month: "all"
         });
     };
 
     return (
         <div className="bg-white border border-gray-300 dark:border-gray-700 dark:bg-[#121614] rounded-2xl p-4 mb-5 w-full">
-            <div className="flex flex-col min-[1000px]:flex-row gap-4 items-center">
-                <div className="flex flex-col min-[600px]:flex-row items-center gap-4 min-[1000px]:w-1/2 w-full">
-                    <div className="relative w-full min-[600px]:w-1/2 dark:bg-gray-900">
-                        <Search
-                            size={16}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-100"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Search transactions..."
-                            value={filters.search}
-                            onChange={(e) =>
-                                setFilters({ ...filters, search: e.target.value })
-                            }
-                            className="w-full border border-gray-300 dark:border-gray-700 
-                            rounded-lg pl-9 pr-3 py-2 text-sm dark:text-gray-100 focus:outline-none
-                            focus:ring-2 focus:ring-gray-300"
-                        />
-                    </div>
+            <div className="flex flex-col gap-4">
+                {/* Search Bar - Full Width */}
+                <div className="relative w-full dark:bg-gray-900">
+                    <Search
+                        size={16}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-100"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Search transactions..."
+                        value={filters.search}
+                        onChange={(e) =>
+                            setFilters({ ...filters, search: e.target.value })
+                        }
+                        className="w-full border border-gray-300 dark:border-gray-700 
+                        rounded-lg pl-9 pr-3 py-2 text-sm dark:text-gray-100 focus:outline-none
+                        focus:ring-2 focus:ring-gray-300"
+                    />
+                </div>
 
+                {/* Filters Grid */}
+                <div className="grid grid-cols-2 min-[600px]:grid-cols-3 min-[1000px]:grid-cols-4 gap-4">
+                    {/* Category Dropdown */}
                     <select
                         value={filters.category}
                         onChange={(e) =>
                             setFilters({ ...filters, category: e.target.value })
                         }
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white w-full min-[600px]:w-1/2
+                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white
                         dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-gray-100 focus:outline-none"
                     >
                         <option value="all">All Categories</option>
@@ -51,15 +56,14 @@ const Filters = ({ filters, setFilters }) => {
                             </option>
                         ))}
                     </select>
-                </div>
-                
-                <div className="flex flex-col min-[600px]:flex-row items-center gap-4 min-[1000px]:w-1/2 w-full">
+
+                    {/* Type Dropdown */}
                     <select
                         value={filters.type}
                         onChange={(e) =>
                             setFilters({ ...filters, type: e.target.value })
                         }
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white w-full min-[600px]:w-1/2
+                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white
                         dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-gray-100 focus:outline-none"
                     >
                         <option value="all">All Types</option>
@@ -70,19 +74,34 @@ const Filters = ({ filters, setFilters }) => {
                         ))}
                     </select>
 
+                    {/* Month Dropdown */}
+                    <select
+                        value={filters.month || "all"}
+                        onChange={(e) =>
+                            setFilters({ ...filters, month: e.target.value })
+                        }
+                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white
+                        dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-gray-100 focus:outline-none"
+                    >
+                        <option value="all">All Months</option>
+                        {months.map((month, index) => (
+                            <option key={index} value={index}>
+                                {month}
+                            </option>
+                        ))}
+                    </select>
+
+                    {/* Reset Button - Takes remaining space */}
                     <button
                         onClick={handleReset}
-                        className="flex items-center text-sm px-3 py-2 border border-gray-300 
-                        rounded-lg hover:bg-green-600 transition-colors duration-200 min-[600px]:w-1/2 w-full
-                        justify-center font-medium hover:text-white dark:bg-gray-900 
-                        dark:border-gray-700 dark:text-gray-100"
+                        className="flex items-center justify-center text-sm px-3 py-2 border border-gray-300 
+                        rounded-lg hover:bg-green-600 transition-colors duration-200 font-medium hover:text-white 
+                        dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100 col-span-2 min-[600px]:col-span-1"
                     >
-                        <X size={14} />
-                        Reset Filters
+                        <X size={14} className="mr-1" />
+                        Reset filters
                     </button>
                 </div>
-                
-
             </div>
         </div>
     );

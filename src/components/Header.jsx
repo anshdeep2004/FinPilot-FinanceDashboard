@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Moon, Sun, Menu, X } from 'lucide-react'
 import photo from '../assets/ansh_photo_passport_size.jpg'
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,23 @@ const Header = ({ theme, setTheme }) => {
     const [role, setRole] = useState("admin");
 
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
+
+    const modalRef = useRef();
+    
+    useEffect(() => {
+    const handleClickOutside = (e) => {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            setOpen(false);
+        }
+    };
+    if(open) {
+        document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+    }, [open]);
 
     useEffect(() => {
         const savedRole = localStorage.getItem("role");
@@ -67,7 +84,7 @@ const Header = ({ theme, setTheme }) => {
                     </div>
 
                     {open && (
-                        <div className="absolute right-0 top-12 bg-white border border-gray-300 dark:border dark:border-gray-700 dark:bg-[#121614] rounded-xl shadow-lg p-4 w-56 z-50">
+                        <div ref={modalRef} className="absolute right-0 top-12 bg-white border border-gray-300 dark:border dark:border-gray-700 dark:bg-[#121614] rounded-xl shadow-lg p-4 w-56 z-50">
 
                             <div className="flex flex-col items-center mb-3">
                                 <img src={photo} className="h-14 w-14 rounded-full mb-2 dark:border dark:border-gray-700" />
