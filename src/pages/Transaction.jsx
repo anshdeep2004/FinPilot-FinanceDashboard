@@ -22,12 +22,10 @@ const Transaction = () => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         
-        // First sort by date descending (newest dates first)
         if (dateA.getTime() !== dateB.getTime()) {
           return dateB - dateA;
         }
         
-        // For same dates, sort by createdAt descending (most recent first)
         const timeA = a.createdAt ? new Date(a.createdAt) : new Date(0);
         const timeB = b.createdAt ? new Date(b.createdAt) : new Date(0);
         return timeB - timeA;
@@ -119,12 +117,10 @@ const Transaction = () => {
             const dateA = new Date(a.date);
             const dateB = new Date(b.date);
             
-            // First sort by date descending (newest dates first)
             if (dateA.getTime() !== dateB.getTime()) {
               return dateB - dateA;
             }
             
-            // For same dates, sort by createdAt descending (most recent first)
             const timeA = a.createdAt ? new Date(a.createdAt) : new Date(0);
             const timeB = b.createdAt ? new Date(b.createdAt) : new Date(0);
             return timeB - timeA;

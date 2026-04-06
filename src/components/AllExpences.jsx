@@ -4,11 +4,7 @@ import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 const AllExpenses = ({ data, daily, weekly, monthly }) => {
   return (
     <div className="bg-white dark:bg-[#121614] p-6 rounded-2xl border border-gray-300 w-full dark:border-gray-700">
-      
-      {/* Title */}
       <h2 className="text-lg font-semibold mb-4 dark:text-gray-100">All expenses</h2>
-
-      {/* Stats */}
       <div className="flex justify-between text-sm mb-6">
         <div>
           <p className="text-gray-500 dark:text-gray-200">Daily</p>

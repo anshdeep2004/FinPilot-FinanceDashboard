@@ -108,7 +108,6 @@ const AddTransaction = ({ onClose, onSave, editData }) => {
           className="border border-gray-300 dark:border-gray-700 dark:text-gray-100 p-2 w-full mb-2 rounded-lg"
         />
 
-        {/* Buttons */}
         <div className="flex justify-end gap-4 mt-4">
           <button
             className="px-6 py-2 text-gray-600 text-sm bg-white hover:bg-gray-100 transition border
@@ -123,8 +122,6 @@ const AddTransaction = ({ onClose, onSave, editData }) => {
             onClick={() => {
               const selectedDate = new Date(form.date);
               const today = new Date();
-
-              // Compare dates by year, month, day only
               const selectedYear = selectedDate.getFullYear();
               const selectedMonth = selectedDate.getMonth();
               const selectedDay = selectedDate.getDate();
@@ -145,7 +142,6 @@ const AddTransaction = ({ onClose, onSave, editData }) => {
                 return;
               }
 
-              // Add timestamp for new transactions
               const transactionData = editData 
                 ? form 
                 : { ...form, createdAt: new Date().toISOString() };

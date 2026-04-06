@@ -19,7 +19,6 @@ const Filters = ({ filters, setFilters }) => {
     return (
         <div className="bg-white border border-gray-300 dark:border-gray-700 dark:bg-[#121614] rounded-2xl p-4 mb-5 w-full">
             <div className="flex flex-col gap-4">
-                {/* Search Bar - Full Width */}
                 <div className="relative w-full dark:bg-gray-900">
                     <Search
                         size={16}
@@ -38,9 +37,7 @@ const Filters = ({ filters, setFilters }) => {
                     />
                 </div>
 
-                {/* Filters Grid */}
                 <div className="grid grid-cols-2 min-[600px]:grid-cols-3 min-[1000px]:grid-cols-4 gap-4">
-                    {/* Category Dropdown */}
                     <select
                         value={filters.category}
                         onChange={(e) =>
@@ -57,7 +54,6 @@ const Filters = ({ filters, setFilters }) => {
                         ))}
                     </select>
 
-                    {/* Type Dropdown */}
                     <select
                         value={filters.type}
                         onChange={(e) =>
@@ -74,7 +70,6 @@ const Filters = ({ filters, setFilters }) => {
                         ))}
                     </select>
 
-                    {/* Month Dropdown */}
                     <select
                         value={filters.month || "all"}
                         onChange={(e) =>
@@ -91,7 +86,6 @@ const Filters = ({ filters, setFilters }) => {
                         ))}
                     </select>
 
-                    {/* Reset Button - Takes remaining space */}
                     <button
                         onClick={handleReset}
                         className="flex items-center justify-center text-sm px-3 py-2 border border-gray-300 
