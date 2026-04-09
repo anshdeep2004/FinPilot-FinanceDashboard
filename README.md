@@ -1,6 +1,8 @@
 
 # FinPilot - Finance Dashboard
 
+## Note: Deployed Website is not working as I have not configured the backend. So kindly follow the setup to get the real experience of the website.
+
 ## Description
 
 FinPilot is a comprehensive personal finance management web application built with React and Vite. It empowers users to track their income and expenses, visualize financial data through interactive graphs, gain insights into spending patterns, and manage transactions efficiently. The application features a clean, responsive design with dark and light mode support, ensuring a seamless user experience across devices.
